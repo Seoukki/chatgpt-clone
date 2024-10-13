@@ -83,21 +83,14 @@ const handleSubmit = async (e) => {
 
     // messageDiv.innerHTML = "..."
     loader(messageDiv)
-    const response = await fetch('https://codex-chatgpt-o33z.onrender.com/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            prompt: data.get('prompt')
-        })
+    const response = await fetch(`https://itzpire.com/ai/gpt?model=gpt-4&q=${encodeURIComponent(message)}`);
     })
 
     clearInterval(loadInterval)
     messageDiv.innerHTML = " "
 
     if (response.ok) {
-        const data = await response.json();
+        const data = await response.data.response();
         const parsedData = data.bot.trim() // trims any trailing spaces/'\n'
 
         typeText(messageDiv, parsedData)
